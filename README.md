@@ -5,5 +5,5 @@ Short duration bursts of energy, also knoown as **glitches** or **triggers**, of
 In this project, I am using Convolutional Neural Network (CNN) to classify three different types of glitches that very regularly show up in the detector. The algorithm is trained on time-frequency spectrogram images of the three glitch classes as shown here.
 ![glitch_classes](classes.png)
 
-The script `make_qscans.py` was used to generate these time-frequency spectrogram images from the raw timeseries, I then separated these images into **Training** and **Validation** using the script `transfer_files.py`. The code for this noise classification is in the file `classify_noise.py`. 
+The file `scripts/make_qscans.py` was used to generate these time-frequency spectrogram images from the raw timeseries, I then separated these images into **Training** and **Validation** using the code in `scripts/transfer_files.py`. The code for this noise classification is in the file `scripts/classify_noise.py`. 
 The details of the CNN model is in the file `fast_slow_koi.h5` while loss and accuracy parameters are stored in `history.pkl`. 
