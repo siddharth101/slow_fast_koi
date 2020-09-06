@@ -5,6 +5,18 @@ from keras_preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import RMSprop
 from tensorflow.keras.optimizers import Adam
 
+
+
+import tensorflow as tf
+
+class myCallback(tf.keras.callbacks.Callback):
+  def on_epoch_end(self, epoch, logs={}):
+    if(logs.get('acc')>0.95):
+      print("\nReached 95% accuracy so cancelling training!")
+      self.model.stop_training = True
+
+callbacks = myCallback()
+
 model = tf.keras.models.Sequential([
     # First Conv layer
     tf.keras.layers.Conv2D(64,(3,3), activation='relu', input_shape=(150,150,3)),
@@ -50,8 +62,8 @@ validation_datagenerator = validation_datagen.flow_from_directory(VALIDATION_DIR
                                                       class_mode='categorical')
 
 history = model.fit(train_datagenerator, steps_per_epoch= 765//20,
-                    epochs=3, verbose=True, validation_data=validation_datagenerator,
-                    validation_steps= 145//20)
+                    epochs=10, verbose=True, validation_data=validation_datagenerator,
+                    validation_steps= 145//20, callbacks = [callbacks])
 acc = history.history['acc']
 val_acc = history.history['val_acc']
 loss = history.history['loss']
